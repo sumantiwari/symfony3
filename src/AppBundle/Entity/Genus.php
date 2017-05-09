@@ -78,6 +78,10 @@ class Genus
         $this->name = $name;
         return $this;
     }
-
+    
+     public function getUpdatedAt()
+    {
+        return new \DateTime('-'.rand(0, 100).' days');
+    }
 
 }
