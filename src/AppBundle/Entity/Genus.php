@@ -5,35 +5,47 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- *  @ORM\Entity
+ *  @ORM\Entity(repositoryClass="AppBundle\Repository\GenusRepository")
  * @ORM\Table(name="genus")
  */
-class Genus
-{
+class Genus {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @ORM\Column(type="string")
      */
     private $name;
-    
+
     /**
      * @ORM\Column(type="string")
      */
     private $subFamily;
+
     /**
      * @ORM\Column(type="integer")
      */
     private $speciesCount;
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $funFact;
-    
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished = true;
+
+    public function setIsPublished($isPublished) {
+        $this->isPublished = $isPublished;
+    }
+
     public function getSubFamily() {
         return $this->subFamily;
     }
@@ -61,7 +73,7 @@ class Genus
         return $this;
     }
 
-        public function getId() {
+    public function getId() {
         return $this->id;
     }
 
@@ -78,10 +90,9 @@ class Genus
         $this->name = $name;
         return $this;
     }
-    
-     public function getUpdatedAt()
-    {
-        return new \DateTime('-'.rand(0, 100).' days');
+
+    public function getUpdatedAt() {
+        return new \DateTime('-' . rand(0, 100) . ' days');
     }
 
 }

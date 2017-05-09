@@ -34,9 +34,12 @@ class GenusController extends Controller {
     public function listAction() {
         $em = $this->getDoctrine()->getManager();
         $genuses = $em->getRepository('AppBundle:Genus')
-                ->findAll();
-         return $this->render('genus/list.html.twig', [
-            'genuses' => $genuses
+//                ->findAll();
+                ->findAllPublishedOrderedBySize();
+
+
+        return $this->render('genus/list.html.twig', [
+                    'genuses' => $genuses
         ]);
     }
 
@@ -44,16 +47,16 @@ class GenusController extends Controller {
      * @Route("/genus/{genusName}", name="genus_show")
      */
     public function showAction($genusName) {
-        
+
         $em = $this->getDoctrine()->getManager();
         $genus = $em->getRepository('AppBundle:Genus')
-            ->findOneBy(['name' => $genusName]);
-        
-         if (!$genus) {
+                ->findOneBy(['name' => $genusName]);
+
+        if (!$genus) {
             throw $this->createNotFoundException('genus not found');
         }
-        
-        
+
+
 //        $cache = $this->get('doctrine_cache.providers.my_markdown_cache');
 //        $key = md5($funFact);
 //        if ($cache->contains($key)) {
@@ -66,7 +69,7 @@ class GenusController extends Controller {
 //        }
 
         return $this->render('genus/show.html.twig', array(
-                     'genus' => $genus
+                    'genus' => $genus
         ));
     }
 
